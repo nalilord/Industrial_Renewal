@@ -1,8 +1,8 @@
 package cassiokf.industrialrenewal.blocks.industrialfloor;
 
 import cassiokf.industrialrenewal.blocks.pipes.BlockEnergyCable;
+import cassiokf.industrialrenewal.enums.EnumEnergyCableType;
 import cassiokf.industrialrenewal.init.ModBlocks;
-import cassiokf.industrialrenewal.util.EnumEnergyCableType;
 import cassiokf.industrialrenewal.util.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
@@ -48,7 +48,7 @@ public class BlockFloorCable extends BlockEnergyCable
     protected BlockStateContainer createBlockState()
     {
         IProperty[] listedProperties = new IProperty[]{}; // listed properties
-        IUnlistedProperty[] unlistedProperties = new IUnlistedProperty[]{SOUTH, NORTH, EAST, WEST, UP, DOWN, CSOUTH, CNORTH, CEAST, CWEST, CUP, CDOWN, WSOUTH, WNORTH, WEAST, WWEST, WUP, WDOWN};
+        IUnlistedProperty[] unlistedProperties = new IUnlistedProperty[]{MASTER, SOUTH, NORTH, EAST, WEST, UP, DOWN, CSOUTH, CNORTH, CEAST, CWEST, CUP, CDOWN, WSOUTH, WNORTH, WEAST, WWEST, WUP, WDOWN};
         return new ExtendedBlockState(this, listedProperties, unlistedProperties);
     }
 
@@ -73,9 +73,6 @@ public class BlockFloorCable extends BlockEnergyCable
     @Override
     public void onPlayerDestroy(World world, BlockPos pos, IBlockState state)
     {
-        int x = pos.getX();
-        int y = pos.getY();
-        int z = pos.getZ();
         Block block;
         switch (type)
         {
@@ -91,7 +88,7 @@ public class BlockFloorCable extends BlockEnergyCable
                 break;
         }
         ItemStack itemst = new ItemStack(ItemBlock.getItemFromBlock(block));
-        if (!world.isRemote) Utils.spawnItemStack(world, x, y, z, itemst);
+        if (!world.isRemote) Utils.spawnItemStack(world, pos, itemst);
         super.onPlayerDestroy(world, pos, state);
     }
 
@@ -109,7 +106,8 @@ public class BlockFloorCable extends BlockEnergyCable
     }
 
     @Override
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
+    {
         return FULL_BLOCK_AABB;
     }
 
@@ -120,8 +118,16 @@ public class BlockFloorCable extends BlockEnergyCable
     }
 
     @Override
-    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
-        if (face == EnumFacing.UP || face == EnumFacing.DOWN) {
+    public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side)
+    {
+        return side.equals(EnumFacing.UP);
+    }
+
+    @Override
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face)
+    {
+        if (face == EnumFacing.UP || face == EnumFacing.DOWN)
+        {
             return BlockFaceShape.SOLID;
         }
         return BlockFaceShape.UNDEFINED;

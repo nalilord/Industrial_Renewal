@@ -126,7 +126,7 @@ tile.industrialrenewal.button_red.name=Emergency Button
 tile.industrialrenewal.fence_big_column.name=Big Fence Column
 tile.industrialrenewal.fence_big_corner.name=Big Fence Corner
 tile.industrialrenewal.fence_big_wire.name=Big Fence Wire
-tile.industrialrenewal.electric_pump.name=Electric Pump (WIP)
+tile.industrialrenewal.electric_pump.name=Electric Pump
 tile.industrialrenewal.battery_bank.name=Battery Bank
 tile.industrialrenewal.steam_boiler.name=Steam Boiler
 tile.industrialrenewal.steam_turbine.name=Steam Turbine
@@ -150,6 +150,7 @@ tile.industrialrenewal.energy_switch.name=Energy Breaker
 tile.industrialrenewal.transformer_hv.name=HV Transformer
 tile.industrialrenewal.isolator_hv.name=HV Isolator
 tile.industrialrenewal.infinity_generator.name=Creative Infinity §mScam§r §fEnergy Generator
+tile.industrialrenewal.cable_tray.name=Cable Tray
 
 #Fluids
 fluid.steam=Steam

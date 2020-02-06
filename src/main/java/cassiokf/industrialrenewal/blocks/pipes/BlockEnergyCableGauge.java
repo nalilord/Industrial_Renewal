@@ -1,12 +1,13 @@
 package cassiokf.industrialrenewal.blocks.pipes;
 
+import cassiokf.industrialrenewal.enums.EnumEnergyCableType;
 import cassiokf.industrialrenewal.init.ModBlocks;
 import cassiokf.industrialrenewal.item.ItemPowerScrewDrive;
 import cassiokf.industrialrenewal.tileentity.tubes.TileEntityEnergyCableGauge;
 import cassiokf.industrialrenewal.tileentity.tubes.TileEntityEnergyCableHVGauge;
 import cassiokf.industrialrenewal.tileentity.tubes.TileEntityEnergyCableLVGauge;
 import cassiokf.industrialrenewal.tileentity.tubes.TileEntityEnergyCableMVGauge;
-import cassiokf.industrialrenewal.util.EnumEnergyCableType;
+import cassiokf.industrialrenewal.util.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.properties.IProperty;
@@ -16,6 +17,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -43,7 +45,7 @@ public class BlockEnergyCableGauge extends BlockEnergyCable
     protected BlockStateContainer createBlockState()
     {
         IProperty[] listedProperties = new IProperty[]{FACING}; // listed properties
-        IUnlistedProperty[] unlistedProperties = new IUnlistedProperty[]{SOUTH, NORTH, EAST, WEST, UP, DOWN, CSOUTH, CNORTH, CEAST, CWEST, CUP, CDOWN};
+        IUnlistedProperty[] unlistedProperties = new IUnlistedProperty[]{MASTER, SOUTH, NORTH, EAST, WEST, UP, DOWN, CSOUTH, CNORTH, CEAST, CWEST, CUP, CDOWN};
         return new ExtendedBlockState(this, listedProperties, unlistedProperties);
     }
 
@@ -54,7 +56,8 @@ public class BlockEnergyCableGauge extends BlockEnergyCable
         {
             EnumFacing facing = state.getValue(FACING);
             IExtendedBlockState eState = (IExtendedBlockState) state;
-            return eState.withProperty(SOUTH, canConnectToPipe(world, pos, facing.getOpposite())).withProperty(NORTH, canConnectToPipe(world, pos, facing))
+            return eState.withProperty(MASTER, isMaster(world, pos))
+                    .withProperty(SOUTH, canConnectToPipe(world, pos, facing.getOpposite())).withProperty(NORTH, canConnectToPipe(world, pos, facing))
                     .withProperty(EAST, canConnectToPipe(world, pos, facing.rotateY())).withProperty(WEST, canConnectToPipe(world, pos, facing.rotateYCCW()))
                     .withProperty(UP, canConnectToPipe(world, pos, EnumFacing.UP)).withProperty(DOWN, canConnectToPipe(world, pos, EnumFacing.DOWN))
                     .withProperty(CSOUTH, canConnectToCapability(world, pos, facing.getOpposite())).withProperty(CNORTH, canConnectToCapability(world, pos, facing))
@@ -130,6 +133,14 @@ public class BlockEnergyCableGauge extends BlockEnergyCable
     public int getMetaFromState(IBlockState state)
     {
         return state.getValue(FACING).getHorizontalIndex();
+    }
+
+    @Override
+    public void onPlayerDestroy(World world, BlockPos pos, IBlockState state)
+    {
+        ItemStack itemst = new ItemStack(ItemBlock.getItemFromBlock(ModBlocks.energyLevel));
+        if (!world.isRemote) Utils.spawnItemStack(world, pos, itemst);
+        super.onPlayerDestroy(world, pos, state);
     }
 
     @Override

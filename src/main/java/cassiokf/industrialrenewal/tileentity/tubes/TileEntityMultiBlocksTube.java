@@ -9,13 +9,17 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Stack;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public abstract class TileEntityMultiBlocksTube<TE extends TileEntityMultiBlocksTube> extends TileEntitySyncable implements ITickable
 {
     private TE master;
     private boolean isMaster;
-    private Map<BlockPos, EnumFacing> posSet = new HashMap<>();
+    private Map<BlockPos, EnumFacing> posSet = new ConcurrentHashMap<>();
     public int outPut;
     public int oldOutPut = -1;
     int outPutCount;
@@ -45,18 +49,19 @@ public abstract class TileEntityMultiBlocksTube<TE extends TileEntityMultiBlocks
 
     private void initializeMultiblockIfNecessary()
     {
-        if (master == null || master.isInvalid())
+        if (isMasterInvalid())
         {
-            List<TE> connectedCables = new ArrayList<TE>();
-            Stack<TE> traversingCables = new Stack<TE>();
+            if (isTray()) return;
+            List<TileEntityMultiBlocksTube> connectedCables = new CopyOnWriteArrayList<>();
+            Stack<TileEntityMultiBlocksTube> traversingCables = new Stack<>();
             TE master = (TE) this;
-            traversingCables.add((TE) this);
+            traversingCables.add(this);
             while (!traversingCables.isEmpty())
             {
-                TE storage = traversingCables.pop();
+                TileEntityMultiBlocksTube storage = traversingCables.pop();
                 if (storage.isMaster())
                 {
-                    master = storage;
+                    master = (TE) storage;
                 }
                 connectedCables.add(storage);
                 for (EnumFacing d : getFacesToCheck())
@@ -69,14 +74,41 @@ public abstract class TileEntityMultiBlocksTube<TE extends TileEntityMultiBlocks
                 }
             }
             master.getPosSet().clear();
-            for (TE storage : connectedCables)
+            if (canBeMaster(master))
             {
-                storage.setMaster(master);
-                storage.checkForOutPuts(storage.getPos());
-                storage.markDirty();
+                for (TileEntityMultiBlocksTube storage : connectedCables)
+                {
+                    if (!canBeMaster(storage)) continue;
+                    storage.setMaster((TE) master);
+                    storage.checkForOutPuts(storage.getPos());
+                    storage.markDirty();
+                }
+            } else
+            {
+                for (TileEntityMultiBlocksTube storage : connectedCables)
+                {
+                    if (!canBeMaster(storage)) continue;
+                    storage.getPosSet().clear();
+                    storage.setMaster(null);
+                }
             }
             markDirty();
         }
+    }
+
+    public boolean isTray()
+    {
+        return false;
+    }
+
+    private boolean canBeMaster(TileEntity te)
+    {
+        return te != null && !(te instanceof TileEntityCableTray);
+    }
+
+    public boolean isMasterInvalid()
+    {
+        return master == null || master.isInvalid();
     }
 
     public EnumFacing[] getFacesToCheck()
@@ -104,7 +136,6 @@ public abstract class TileEntityMultiBlocksTube<TE extends TileEntityMultiBlocks
         this.master = master;
         isMaster = master == this;
         if (!isMaster) posSet.clear();
-        markDirty();
     }
 
     public Map<BlockPos, EnumFacing> getPosSet()
@@ -116,13 +147,25 @@ public abstract class TileEntityMultiBlocksTube<TE extends TileEntityMultiBlocks
     public void invalidate()
     {
         super.invalidate();
+
+        if (master != null)
+        {
+            master.setMaster(null);
+            if (master != null) master.getMaster();
+            else getMaster();
+        }
+
         for (EnumFacing d : EnumFacing.VALUES)
         {
             TileEntity te = world.getTileEntity(pos.offset(d));
             if (instanceOf(te))
             {
                 ((TileEntityMultiBlocksTube) te).master = null;
-                ((TileEntityMultiBlocksTube) te).initializeMultiblockIfNecessary();
+
+                if (te instanceof TileEntityCableTray)
+                    ((TileEntityCableTray) te).refreshConnections();
+                else
+                    ((TileEntityMultiBlocksTube) te).initializeMultiblockIfNecessary();
             }
         }
     }
