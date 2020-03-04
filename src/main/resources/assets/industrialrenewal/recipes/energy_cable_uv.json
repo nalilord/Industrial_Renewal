@@ -1,0 +1,29 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "GEG",
+    "CCC",
+    "GPG"
+  ],
+  "key": {
+    "C": {
+      "ore": "industrialrenewal:energy_cable_hv"
+    },
+    "E": {
+      "type": "forge:ore_dict",
+      "ore": "emerald"
+    },
+    "P": {
+      "type": "forge:ore_dict",
+      "ore": "enderpearl"
+    },
+    "G": {
+      "type": "forge:ore_dict",
+      "ore": "blockObsidian"
+    }
+  },
+  "result": {
+    "item": "industrialrenewal:energy_cable_uv",
+    "count": 6
+  }
+}

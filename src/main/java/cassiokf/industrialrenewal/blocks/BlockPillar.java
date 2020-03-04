@@ -167,6 +167,16 @@ public class BlockPillar extends BlockBase {
                 }
                 return true;
             }
+            if (playerItem.equals(ItemBlock.getItemFromBlock(ModBlocks.energyCableUV)))
+            {
+                if (!world.isRemote)
+                {
+                    world.setBlockState(pos, ModBlocks.pillarEnergyCableUV.getDefaultState(), 3);
+                    world.playSound(null, pos, SoundEvent.REGISTRY.getObject(new ResourceLocation(("block.metal.place"))), SoundCategory.BLOCKS, 1f, 1f);
+                    if (!player.isCreative()) playerStack.shrink(1);
+                }
+                return true;
+            }
             if (playerItem.equals(ItemBlock.getItemFromBlock(ModBlocks.fluidPipe)))
             {
                 if (!world.isRemote)

@@ -45,6 +45,14 @@ public class CableTrayComposite implements IBakedModel
     private IBakedModel modelPipeUp;
     private IBakedModel modelPipeDown;
 
+    private IBakedModel modelUvCore;
+    private IBakedModel modelUvNorth;
+    private IBakedModel modelUvSouth;
+    private IBakedModel modelUvEast;
+    private IBakedModel modelUvWest;
+    private IBakedModel modelUvUp;
+    private IBakedModel modelUvDown;
+
     private IBakedModel modelHvCore;
     private IBakedModel modelHvNorth;
     private IBakedModel modelHvSouth;
@@ -77,6 +85,13 @@ public class CableTrayComposite implements IBakedModel
     private IBakedModel model2PipeUp;
     private IBakedModel model2PipeDown;
 
+    private IBakedModel model2UvNorth;
+    private IBakedModel model2UvSouth;
+    private IBakedModel model2UvEast;
+    private IBakedModel model2UvWest;
+    private IBakedModel model2UvUp;
+    private IBakedModel model2UvDown;
+
     private IBakedModel model2HvNorth;
     private IBakedModel model2HvSouth;
     private IBakedModel model2HvEast;
@@ -107,6 +122,11 @@ public class CableTrayComposite implements IBakedModel
                               IBakedModel i_modelPipeDown, IBakedModel i_model2PipeNorth,
                               IBakedModel i_model2PipeSouth, IBakedModel i_model2PipeEast, IBakedModel i_model2PipeWest,
                               IBakedModel i_model2PipeUp, IBakedModel i_model2PipeDown,
+                              IBakedModel i_modelUvCore, IBakedModel i_modelUvNorth, IBakedModel i_modelUvSouth,
+                              IBakedModel i_modelUvEast, IBakedModel i_modelUvWest, IBakedModel i_modelUvUp,
+                              IBakedModel i_modelUvDown, IBakedModel i_model2UvNorth,
+                              IBakedModel i_model2UvSouth, IBakedModel i_model2UvEast, IBakedModel i_model2UvWest,
+                              IBakedModel i_model2UvUp, IBakedModel i_model2UvDown,
                               IBakedModel i_modelHvCore, IBakedModel i_modelHvNorth, IBakedModel i_modelHvSouth,
                               IBakedModel i_modelHvEast, IBakedModel i_modelHvWest, IBakedModel i_modelHvUp,
                               IBakedModel i_modelHvDown, IBakedModel i_model2HvNorth,
@@ -151,6 +171,21 @@ public class CableTrayComposite implements IBakedModel
         model2PipeWest = i_model2PipeWest;
         model2PipeUp = i_model2PipeUp;
         model2PipeDown = i_model2PipeDown;
+
+        modelUvCore = i_modelUvCore;
+        modelUvNorth = i_modelUvNorth;
+        modelUvSouth = i_modelUvSouth;
+        modelUvEast = i_modelUvEast;
+        modelUvWest = i_modelUvWest;
+        modelUvUp = i_modelUvUp;
+        modelUvDown = i_modelUvDown;
+
+        model2UvNorth = i_model2UvNorth;
+        model2UvSouth = i_model2UvSouth;
+        model2UvEast = i_model2UvEast;
+        model2UvWest = i_model2UvWest;
+        model2UvUp = i_model2UvUp;
+        model2UvDown = i_model2UvDown;
 
         modelHvCore = i_modelHvCore;
         modelHvNorth = i_modelHvNorth;
@@ -311,6 +346,61 @@ public class CableTrayComposite implements IBakedModel
         if (isLinkPresent(extendedBlockState, BlockCableTray.PIPE2_DOWN))
         {
             quadsList.addAll(model2PipeDown.getQuads(extendedBlockState, side, rand));
+        }
+
+        // UV
+        if (isLinkPresent(extendedBlockState, BlockCableTray.UV_CORE))
+        {
+            quadsList.addAll(modelUvCore.getQuads(extendedBlockState, side, rand));
+        }
+        if (isLinkPresent(extendedBlockState, BlockCableTray.UV_SOUTH))
+        {
+            quadsList.addAll(modelUvSouth.getQuads(extendedBlockState, side, rand));
+        }
+        if (isLinkPresent(extendedBlockState, BlockCableTray.UV_NORTH))
+        {
+            quadsList.addAll(modelUvNorth.getQuads(extendedBlockState, side, rand));
+        }
+        if (isLinkPresent(extendedBlockState, BlockCableTray.UV_EAST))
+        {
+            quadsList.addAll(modelUvEast.getQuads(extendedBlockState, side, rand));
+        }
+        if (isLinkPresent(extendedBlockState, BlockCableTray.UV_WEST))
+        {
+            quadsList.addAll(modelUvWest.getQuads(extendedBlockState, side, rand));
+        }
+        if (isLinkPresent(extendedBlockState, BlockCableTray.UV_UP))
+        {
+            quadsList.addAll(modelUvUp.getQuads(extendedBlockState, side, rand));
+        }
+        if (isLinkPresent(extendedBlockState, BlockCableTray.UV_DOWN))
+        {
+            quadsList.addAll(modelUvDown.getQuads(extendedBlockState, side, rand));
+        }
+
+        if (isLinkPresent(extendedBlockState, BlockCableTray.UV2_NORTH))
+        {
+            quadsList.addAll(model2UvNorth.getQuads(extendedBlockState, side, rand));
+        }
+        if (isLinkPresent(extendedBlockState, BlockCableTray.UV2_SOUTH))
+        {
+            quadsList.addAll(model2UvSouth.getQuads(extendedBlockState, side, rand));
+        }
+        if (isLinkPresent(extendedBlockState, BlockCableTray.UV2_EAST))
+        {
+            quadsList.addAll(model2UvEast.getQuads(extendedBlockState, side, rand));
+        }
+        if (isLinkPresent(extendedBlockState, BlockCableTray.UV2_WEST))
+        {
+            quadsList.addAll(model2UvWest.getQuads(extendedBlockState, side, rand));
+        }
+        if (isLinkPresent(extendedBlockState, BlockCableTray.UV2_UP))
+        {
+            quadsList.addAll(model2UvUp.getQuads(extendedBlockState, side, rand));
+        }
+        if (isLinkPresent(extendedBlockState, BlockCableTray.UV2_DOWN))
+        {
+            quadsList.addAll(model2UvDown.getQuads(extendedBlockState, side, rand));
         }
 
         // HV

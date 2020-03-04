@@ -86,6 +86,9 @@ public class BlockFloorCable extends BlockEnergyCable
             case HV:
                 block = ModBlocks.energyCableHV;
                 break;
+            case UV:
+                block = ModBlocks.energyCableUV;
+                break;
         }
         ItemStack itemst = new ItemStack(ItemBlock.getItemFromBlock(block));
         if (!world.isRemote) Utils.spawnItemStack(world, pos, itemst);

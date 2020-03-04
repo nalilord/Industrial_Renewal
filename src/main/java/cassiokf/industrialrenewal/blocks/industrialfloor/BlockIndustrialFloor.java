@@ -203,14 +203,15 @@ public class BlockIndustrialFloor extends BlockBase
         }
         if (playerItem.equals(ItemBlock.getItemFromBlock(ModBlocks.energyCableMV))
                 || playerItem.equals(ItemBlock.getItemFromBlock(ModBlocks.energyCableLV))
-                || playerItem.equals(ItemBlock.getItemFromBlock(ModBlocks.energyCableHV)))
+                || playerItem.equals(ItemBlock.getItemFromBlock(ModBlocks.energyCableHV))
+                || playerItem.equals(ItemBlock.getItemFromBlock(ModBlocks.energyCableUV)))
         {
             world.playSound(null, pos, SoundEvent.REGISTRY.getObject(new ResourceLocation(("block.metal.place"))), SoundCategory.BLOCKS, 1f, 1f);
             Block block;
             if (playerItem.equals(ItemBlock.getItemFromBlock(ModBlocks.energyCableMV))) block = ModBlocks.floorCableMV;
-            else if (playerItem.equals(ItemBlock.getItemFromBlock(ModBlocks.energyCableLV)))
-                block = ModBlocks.floorCableLV;
-            else block = ModBlocks.floorCableHV;
+            else if (playerItem.equals(ItemBlock.getItemFromBlock(ModBlocks.energyCableLV))) block = ModBlocks.floorCableLV;
+            else if (playerItem.equals(ItemBlock.getItemFromBlock(ModBlocks.energyCableHV))) block = ModBlocks.floorCableHV;
+            else block = ModBlocks.floorCableUV;
             world.setBlockState(pos, block.getDefaultState(), 3);
             if (!entity.isCreative())
             {

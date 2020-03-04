@@ -72,6 +72,9 @@ public class BlockPillarEnergyCable extends BlockEnergyCable
             case HV:
                 block = ModBlocks.energyCableHV;
                 break;
+            case UV:
+                block = ModBlocks.energyCableUV;
+                break;
         }
         ItemStack itemst = new ItemStack(net.minecraft.item.ItemBlock.getItemFromBlock(block));
         EntityItem entity = new EntityItem(worldIn, x, y, z, itemst);
@@ -146,6 +149,9 @@ public class BlockPillarEnergyCable extends BlockEnergyCable
                             break;
                         case HV:
                             block = ModBlocks.energyCableHV;
+                            break;
+                        case UV:
+                            block = ModBlocks.energyCableUV;
                             break;
                     }
                     player.addItemStackToInventory(new ItemStack(Item.getItemFromBlock(block)));

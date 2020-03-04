@@ -53,6 +53,14 @@ public class CableTrayIModel implements IModel
     public static final ModelResourceLocation MODEL2_PIPE_DOWN = new ModelResourceLocation("industrialrenewal:cable_tray/pipe/pipe_con2_down");
 
     //Tray with energy to tray with energy connection
+    public static final ModelResourceLocation MODEL_UV_CORE = new ModelResourceLocation("industrialrenewal:cable_tray/energy/uv/pipe_core");
+    public static final ModelResourceLocation MODEL_UV_SOUTH = new ModelResourceLocation("industrialrenewal:cable_tray/energy/uv/pipe_con_south");
+    public static final ModelResourceLocation MODEL_UV_NORTH = new ModelResourceLocation("industrialrenewal:cable_tray/energy/uv/pipe_con_north");
+    public static final ModelResourceLocation MODEL_UV_WEST = new ModelResourceLocation("industrialrenewal:cable_tray/energy/uv/pipe_con_west");
+    public static final ModelResourceLocation MODEL_UV_EAST = new ModelResourceLocation("industrialrenewal:cable_tray/energy/uv/pipe_con_east");
+    public static final ModelResourceLocation MODEL_UV_UP = new ModelResourceLocation("industrialrenewal:cable_tray/energy/uv/pipe_con_up");
+    public static final ModelResourceLocation MODEL_UV_DOWN = new ModelResourceLocation("industrialrenewal:cable_tray/energy/uv/pipe_con_down");
+
     public static final ModelResourceLocation MODEL_HV_CORE = new ModelResourceLocation("industrialrenewal:cable_tray/energy/hv/pipe_core");
     public static final ModelResourceLocation MODEL_HV_SOUTH = new ModelResourceLocation("industrialrenewal:cable_tray/energy/hv/pipe_con_south");
     public static final ModelResourceLocation MODEL_HV_NORTH = new ModelResourceLocation("industrialrenewal:cable_tray/energy/hv/pipe_con_north");
@@ -78,6 +86,13 @@ public class CableTrayIModel implements IModel
     public static final ModelResourceLocation MODEL_LV_DOWN = new ModelResourceLocation("industrialrenewal:cable_tray/energy/lv/pipe_con_down");
 
     //Tray with energy to Energy Cable connection
+    public static final ModelResourceLocation MODEL2_UV_SOUTH = new ModelResourceLocation("industrialrenewal:cable_tray/energy/uv/pipe_con2_south");
+    public static final ModelResourceLocation MODEL2_UV_NORTH = new ModelResourceLocation("industrialrenewal:cable_tray/energy/uv/pipe_con2_north");
+    public static final ModelResourceLocation MODEL2_UV_WEST = new ModelResourceLocation("industrialrenewal:cable_tray/energy/uv/pipe_con2_west");
+    public static final ModelResourceLocation MODEL2_UV_EAST = new ModelResourceLocation("industrialrenewal:cable_tray/energy/uv/pipe_con2_east");
+    public static final ModelResourceLocation MODEL2_UV_UP = new ModelResourceLocation("industrialrenewal:cable_tray/energy/uv/pipe_con2_up");
+    public static final ModelResourceLocation MODEL2_UV_DOWN = new ModelResourceLocation("industrialrenewal:cable_tray/energy/uv/pipe_con2_down");
+
     public static final ModelResourceLocation MODEL2_HV_SOUTH = new ModelResourceLocation("industrialrenewal:cable_tray/energy/hv/pipe_con2_south");
     public static final ModelResourceLocation MODEL2_HV_NORTH = new ModelResourceLocation("industrialrenewal:cable_tray/energy/hv/pipe_con2_north");
     public static final ModelResourceLocation MODEL2_HV_WEST = new ModelResourceLocation("industrialrenewal:cable_tray/energy/hv/pipe_con2_west");
@@ -178,6 +193,47 @@ public class CableTrayIModel implements IModel
 
             subComponent = ModelLoaderRegistry.getModel(MODEL2_PIPE_DOWN);
             IBakedModel bakedModel2PipeDown = subComponent.bake(state, format, bakedTextureGetter);
+
+            //UV
+
+            subComponent = ModelLoaderRegistry.getModel(MODEL_UV_CORE);
+            IBakedModel bakedModelUvCore = subComponent.bake(state, format, bakedTextureGetter);
+
+            subComponent = ModelLoaderRegistry.getModel(MODEL_UV_SOUTH);
+            IBakedModel bakedModelUvSouth = subComponent.bake(state, format, bakedTextureGetter);
+
+            subComponent = ModelLoaderRegistry.getModel(MODEL_UV_NORTH);
+            IBakedModel bakedModelUvNorth = subComponent.bake(state, format, bakedTextureGetter);
+
+            subComponent = ModelLoaderRegistry.getModel(MODEL_UV_EAST);
+            IBakedModel bakedModelUvEast = subComponent.bake(state, format, bakedTextureGetter);
+
+            subComponent = ModelLoaderRegistry.getModel(MODEL_UV_WEST);
+            IBakedModel bakedModelUvWest = subComponent.bake(state, format, bakedTextureGetter);
+
+            subComponent = ModelLoaderRegistry.getModel(MODEL_UV_UP);
+            IBakedModel bakedModelUvUp = subComponent.bake(state, format, bakedTextureGetter);
+
+            subComponent = ModelLoaderRegistry.getModel(MODEL_UV_DOWN);
+            IBakedModel bakedModelUvDown = subComponent.bake(state, format, bakedTextureGetter);
+
+            subComponent = ModelLoaderRegistry.getModel(MODEL2_UV_SOUTH);
+            IBakedModel bakedModel2UvSouth = subComponent.bake(state, format, bakedTextureGetter);
+
+            subComponent = ModelLoaderRegistry.getModel(MODEL2_UV_NORTH);
+            IBakedModel bakedModel2UvNorth = subComponent.bake(state, format, bakedTextureGetter);
+
+            subComponent = ModelLoaderRegistry.getModel(MODEL2_UV_EAST);
+            IBakedModel bakedModel2UvEast = subComponent.bake(state, format, bakedTextureGetter);
+
+            subComponent = ModelLoaderRegistry.getModel(MODEL2_UV_WEST);
+            IBakedModel bakedModel2UvWest = subComponent.bake(state, format, bakedTextureGetter);
+
+            subComponent = ModelLoaderRegistry.getModel(MODEL2_UV_UP);
+            IBakedModel bakedModel2UvUp = subComponent.bake(state, format, bakedTextureGetter);
+
+            subComponent = ModelLoaderRegistry.getModel(MODEL2_UV_DOWN);
+            IBakedModel bakedModel2UvDown = subComponent.bake(state, format, bakedTextureGetter);
 
             //HV
 
@@ -307,6 +363,9 @@ public class CableTrayIModel implements IModel
                     bakedModelPipeCore, bakedModelPipeNorth, bakedModelPipeSouth, bakedModelPipeEast, bakedModelPipeWest,
                     bakedModelPipeUp, bakedModelPipeDown, bakedModel2PipeNorth, bakedModel2PipeSouth, bakedModel2PipeEast,
                     bakedModel2PipeWest, bakedModel2PipeUp, bakedModel2PipeDown,
+                    bakedModelUvCore, bakedModelUvNorth, bakedModelUvSouth, bakedModelUvEast, bakedModelUvWest,
+                    bakedModelUvUp, bakedModelUvDown, bakedModel2UvNorth, bakedModel2UvSouth, bakedModel2UvEast,
+                    bakedModel2UvWest, bakedModel2UvUp, bakedModel2UvDown,
                     bakedModelHvCore, bakedModelHvNorth, bakedModelHvSouth, bakedModelHvEast, bakedModelHvWest,
                     bakedModelHvUp, bakedModelHvDown, bakedModel2HvNorth, bakedModel2HvSouth, bakedModel2HvEast,
                     bakedModel2HvWest, bakedModel2HvUp, bakedModel2HvDown,

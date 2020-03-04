@@ -4,10 +4,7 @@ import cassiokf.industrialrenewal.config.IRConfig;
 import cassiokf.industrialrenewal.enums.EnumCableIn;
 import cassiokf.industrialrenewal.enums.EnumEnergyCableType;
 import cassiokf.industrialrenewal.init.ModBlocks;
-import cassiokf.industrialrenewal.tileentity.tubes.TileEntityEnergyCable;
-import cassiokf.industrialrenewal.tileentity.tubes.TileEntityEnergyCableHV;
-import cassiokf.industrialrenewal.tileentity.tubes.TileEntityEnergyCableLV;
-import cassiokf.industrialrenewal.tileentity.tubes.TileEntityEnergyCableMV;
+import cassiokf.industrialrenewal.tileentity.tubes.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.state.IBlockState;
@@ -52,6 +49,9 @@ public class BlockEnergyCable extends BlockPipeBase<TileEntityEnergyCable> imple
             case HV:
                 amount = IRConfig.MainConfig.Main.maxHVEnergyCableTransferAmount;
                 break;
+            case UV:
+                amount = IRConfig.MainConfig.Main.maxHVEnergyCableTransferAmount * 5;
+                break;
         }
         tooltip.add(amount + " FE/t");
         super.addInformation(stack, player, tooltip, advanced);
@@ -68,6 +68,8 @@ public class BlockEnergyCable extends BlockPipeBase<TileEntityEnergyCable> imple
                 return EnumCableIn.MV;
             case HV:
                 return EnumCableIn.HV;
+            case UV:
+                return EnumCableIn.UV;
         }
     }
 
@@ -111,6 +113,9 @@ public class BlockEnergyCable extends BlockPipeBase<TileEntityEnergyCable> imple
                     case HV:
                         block = ModBlocks.floorCableHV;
                         break;
+                    case UV:
+                        block = ModBlocks.floorCableUV;
+                        break;
                 }
                 world.setBlockState(pos, block.getDefaultState(), 3);
                 if (!entity.isCreative())
@@ -138,6 +143,9 @@ public class BlockEnergyCable extends BlockPipeBase<TileEntityEnergyCable> imple
                     case HV:
                         block = ModBlocks.energyCableGaugeHV;
                         break;
+                    case UV:
+                        block = ModBlocks.energyCableGaugeUV;
+                        break;
                 }
                 world.setBlockState(pos, block.getDefaultState().withProperty(BlockEnergyCableGauge.FACING, entity.getHorizontalFacing()), 3);
                 if (!entity.isCreative())
@@ -162,6 +170,8 @@ public class BlockEnergyCable extends BlockPipeBase<TileEntityEnergyCable> imple
                 return TileEntityEnergyCableMV.class;
             case HV:
                 return TileEntityEnergyCableHV.class;
+            case UV:
+                return TileEntityEnergyCableUV.class;
         }
     }
 
@@ -178,6 +188,8 @@ public class BlockEnergyCable extends BlockPipeBase<TileEntityEnergyCable> imple
                 return new TileEntityEnergyCableMV();
             case HV:
                 return new TileEntityEnergyCableHV();
+            case UV:
+                return new TileEntityEnergyCableUV();
         }
     }
 
@@ -194,6 +206,8 @@ public class BlockEnergyCable extends BlockPipeBase<TileEntityEnergyCable> imple
                 return new TileEntityEnergyCableMV();
             case HV:
                 return new TileEntityEnergyCableHV();
+            case UV:
+                return new TileEntityEnergyCableUV();
         }
     }
 }

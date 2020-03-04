@@ -83,6 +83,7 @@ tile.industrialrenewal.detector_rail.name=Detector Rail
 tile.industrialrenewal.energy_cable.name=Energy Cable MV
 tile.industrialrenewal.energy_cable_lv.name=Energy Cable LV
 tile.industrialrenewal.energy_cable_hv.name=Energy Cable HV
+tile.industrialrenewal.energy_cable_uv.name=Energy Cable UV
 tile.industrialrenewal.firstaid_kit.name=First-aid Box
 tile.industrialrenewal.flame_detector.name=Flame Detector
 tile.industrialrenewal.fluid_pipe.name=Fluid Pipe

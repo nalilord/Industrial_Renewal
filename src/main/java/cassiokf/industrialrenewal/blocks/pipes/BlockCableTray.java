@@ -52,6 +52,21 @@ public class BlockCableTray extends BlockPipeBase<TileEntityCableTray> implement
     public static final IUnlistedProperty<Boolean> PIPE2_UP = new Properties.PropertyAdapter<>(PropertyBool.create("pipe2_up"));
     public static final IUnlistedProperty<Boolean> PIPE2_DOWN = new Properties.PropertyAdapter<>(PropertyBool.create("pipe2_down"));
 
+    public static final IUnlistedProperty<Boolean> UV_CORE = new Properties.PropertyAdapter<>(PropertyBool.create("pipe_core"));
+    public static final IUnlistedProperty<Boolean> UV_NORTH = new Properties.PropertyAdapter<>(PropertyBool.create("pipe_north"));
+    public static final IUnlistedProperty<Boolean> UV_SOUTH = new Properties.PropertyAdapter<>(PropertyBool.create("pipe_south"));
+    public static final IUnlistedProperty<Boolean> UV_EAST = new Properties.PropertyAdapter<>(PropertyBool.create("pipe_east"));
+    public static final IUnlistedProperty<Boolean> UV_WEST = new Properties.PropertyAdapter<>(PropertyBool.create("pipe_west"));
+    public static final IUnlistedProperty<Boolean> UV_UP = new Properties.PropertyAdapter<>(PropertyBool.create("pipe_up"));
+    public static final IUnlistedProperty<Boolean> UV_DOWN = new Properties.PropertyAdapter<>(PropertyBool.create("pipe_down"));
+
+    public static final IUnlistedProperty<Boolean> UV2_NORTH = new Properties.PropertyAdapter<>(PropertyBool.create("pipe2_north"));
+    public static final IUnlistedProperty<Boolean> UV2_SOUTH = new Properties.PropertyAdapter<>(PropertyBool.create("pipe2_south"));
+    public static final IUnlistedProperty<Boolean> UV2_EAST = new Properties.PropertyAdapter<>(PropertyBool.create("pipe2_east"));
+    public static final IUnlistedProperty<Boolean> UV2_WEST = new Properties.PropertyAdapter<>(PropertyBool.create("pipe2_west"));
+    public static final IUnlistedProperty<Boolean> UV2_UP = new Properties.PropertyAdapter<>(PropertyBool.create("pipe2_up"));
+    public static final IUnlistedProperty<Boolean> UV2_DOWN = new Properties.PropertyAdapter<>(PropertyBool.create("pipe2_down"));
+
     public static final IUnlistedProperty<Boolean> HV_CORE = new Properties.PropertyAdapter<>(PropertyBool.create("pipe_core"));
     public static final IUnlistedProperty<Boolean> HV_NORTH = new Properties.PropertyAdapter<>(PropertyBool.create("pipe_north"));
     public static final IUnlistedProperty<Boolean> HV_SOUTH = new Properties.PropertyAdapter<>(PropertyBool.create("pipe_south"));
@@ -140,6 +155,8 @@ public class BlockCableTray extends BlockPipeBase<TileEntityCableTray> implement
         IUnlistedProperty[] unlistedProperties = new IUnlistedProperty[]{MASTER, SOUTH, NORTH, EAST, WEST, UP, DOWN, PIPE_CORE,
                 PIPE_NORTH, PIPE_SOUTH, PIPE_EAST, PIPE_WEST, PIPE_UP, PIPE_DOWN, PIPE2_NORTH, PIPE2_SOUTH, PIPE2_EAST,
                 PIPE2_WEST, PIPE2_UP, PIPE2_DOWN,
+                UV_CORE, UV_NORTH, UV_SOUTH, UV_EAST, UV_WEST, UV_UP, UV_DOWN, UV2_NORTH, UV2_SOUTH,
+                UV2_EAST, UV2_WEST, UV2_UP, UV2_DOWN,
                 HV_CORE, HV_NORTH, HV_SOUTH, HV_EAST, HV_WEST, HV_UP, HV_DOWN, HV2_NORTH, HV2_SOUTH,
                 HV2_EAST, HV2_WEST, HV2_UP, HV2_DOWN,
                 MV_CORE, MV_NORTH, MV_SOUTH, MV_EAST, MV_WEST, MV_UP, MV_DOWN, MV2_NORTH, MV2_SOUTH,
@@ -234,6 +251,7 @@ public class BlockCableTray extends BlockPipeBase<TileEntityCableTray> implement
         if (state instanceof IExtendedBlockState)
         {
             IExtendedBlockState eState = (IExtendedBlockState) state;
+            boolean isUvPresent = isCablePresent(world, pos, EnumCableIn.UV);
             boolean isHvPresent = isCablePresent(world, pos, EnumCableIn.HV);
             boolean isMvPresent = isCablePresent(world, pos, EnumCableIn.MV);
             boolean isLvPresent = isCablePresent(world, pos, EnumCableIn.LV);
@@ -255,6 +273,19 @@ public class BlockCableTray extends BlockPipeBase<TileEntityCableTray> implement
                     .withProperty(PIPE2_WEST, isPipePresent && canConnectToCapability(world, pos, EnumFacing.WEST))
                     .withProperty(PIPE2_UP, isPipePresent && canConnectToCapability(world, pos, EnumFacing.UP))
                     .withProperty(PIPE2_DOWN, isPipePresent && canConnectToCapability(world, pos, EnumFacing.DOWN))
+                    .withProperty(UV_CORE, isUvPresent)
+                    .withProperty(UV_NORTH, isUvPresent && canConnectCableTrayToTray(world, pos, EnumFacing.NORTH))
+                    .withProperty(UV_SOUTH, isUvPresent && canConnectCableTrayToTray(world, pos, EnumFacing.SOUTH))
+                    .withProperty(UV_EAST, isUvPresent && canConnectCableTrayToTray(world, pos, EnumFacing.EAST))
+                    .withProperty(UV_WEST, isUvPresent && canConnectCableTrayToTray(world, pos, EnumFacing.WEST))
+                    .withProperty(UV_UP, isUvPresent && canConnectCableTrayToTray(world, pos, EnumFacing.UP))
+                    .withProperty(UV_DOWN, isUvPresent && canConnectCableTrayToTray(world, pos, EnumFacing.DOWN))
+                    .withProperty(UV2_NORTH, isUvPresent && canConnectToEnergyCapability(world, pos, EnumFacing.NORTH, EnumCableIn.UV))
+                    .withProperty(UV2_SOUTH, isUvPresent && canConnectToEnergyCapability(world, pos, EnumFacing.SOUTH, EnumCableIn.UV))
+                    .withProperty(UV2_EAST, isUvPresent && canConnectToEnergyCapability(world, pos, EnumFacing.EAST, EnumCableIn.UV))
+                    .withProperty(UV2_WEST, isUvPresent && canConnectToEnergyCapability(world, pos, EnumFacing.WEST, EnumCableIn.UV))
+                    .withProperty(UV2_UP, isUvPresent && canConnectToEnergyCapability(world, pos, EnumFacing.UP, EnumCableIn.UV))
+                    .withProperty(UV2_DOWN, isUvPresent && canConnectToEnergyCapability(world, pos, EnumFacing.DOWN, EnumCableIn.UV))
                     .withProperty(HV_CORE, isHvPresent)
                     .withProperty(HV_NORTH, isHvPresent && canConnectCableTrayToTray(world, pos, EnumFacing.NORTH))
                     .withProperty(HV_SOUTH, isHvPresent && canConnectCableTrayToTray(world, pos, EnumFacing.SOUTH))

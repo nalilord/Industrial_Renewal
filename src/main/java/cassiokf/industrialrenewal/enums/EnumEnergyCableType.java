@@ -4,5 +4,6 @@ public enum EnumEnergyCableType
 {
     LV,
     MV,
-    HV
+    HV,
+    UV
 }

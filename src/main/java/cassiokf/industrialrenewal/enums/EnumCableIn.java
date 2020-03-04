@@ -7,7 +7,8 @@ public enum EnumCableIn
     NONE(0),
     LV(1),
     MV(2),
-    HV(3);
+    HV(3),
+    UV(4);
 
     public static final EnumCableIn[] VALUES = values();
     private int index;

@@ -68,6 +68,9 @@ public class TileEntityCableTray extends TileEntityMultiBlocksTube<TileEntityCab
                 case HV:
                     energyCable = EnumCableIn.HV;
                     break;
+                case UV:
+                    energyCable = EnumCableIn.UV;
+                    break;
             }
             if (!world.isRemote && !player.isCreative()) stack.shrink(1);
             refreshConnections();
@@ -123,6 +126,11 @@ public class TileEntityCableTray extends TileEntityMultiBlocksTube<TileEntityCab
                     ItemStack stack3 = new ItemStack(Item.getItemFromBlock(ModBlocks.energyCableHV), 1);
                     if (player != null) player.inventory.addItemStackToInventory(stack3);
                     else Utils.spawnItemStack(world, pos, stack3);
+                    break;
+                case UV:
+                    ItemStack stack4 = new ItemStack(Item.getItemFromBlock(ModBlocks.energyCableUV), 1);
+                    if (player != null) player.inventory.addItemStackToInventory(stack4);
+                    else Utils.spawnItemStack(world, pos, stack4);
                     break;
             }
         }

@@ -1,0 +1,30 @@
+{
+  "forge_marker": 1,
+  "variants": {
+    "normal": {
+      "model": "industrialrenewal:smartmodel/pipe_energy_gauge_uv"
+    },
+    "facing": {
+      "north": {
+        "model": "industrialrenewal:smartmodel/pipe_energy_gauge_uv"
+      },
+      "south": {
+        "model": "industrialrenewal:smartmodel/pipe_energy_gauge_uv",
+        "y": 180
+      },
+      "east": {
+        "model": "industrialrenewal:smartmodel/pipe_energy_gauge_uv",
+        "y": 90
+      },
+      "west": {
+        "model": "industrialrenewal:smartmodel/pipe_energy_gauge_uv",
+        "y": -90
+      }
+    },
+    "inventory": [
+      {
+        "model": "industrialrenewal:pipe_energy_uv/cable_center"
+      }
+    ]
+  }
+}

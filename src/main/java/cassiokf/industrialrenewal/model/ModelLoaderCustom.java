@@ -39,6 +39,8 @@ public class ModelLoaderCustom implements ICustomModelLoader
                 return new PipeBaseModel();
             case "pipe_energy":
                 return new EnergyCableBaseModel();
+            case "pipe_energy_uv":
+                return new EnergyCableUVBaseModel();
             case "pipe_energy_hv":
                 return new EnergyCableHVBaseModel();
             case "pipe_energy_lv":
@@ -49,6 +51,8 @@ public class ModelLoaderCustom implements ICustomModelLoader
                 return new PillarEnergyCableLVBaseModel();
             case "pillar_energy_hv":
                 return new PillarEnergyCableHVBaseModel();
+            case "pillar_energy_uv":
+                return new PillarEnergyCableUVBaseModel();
             case "pillar_fluid":
                 return new PillarFluidPipeBaseModel();
             case "pipe_energy_gauge":
@@ -57,6 +61,8 @@ public class ModelLoaderCustom implements ICustomModelLoader
                 return new GaugeEnergyCableLVBaseModel();
             case "pipe_energy_gauge_hv":
                 return new GaugeEnergyCableHVBaseModel();
+            case "pipe_energy_gauge_uv":
+                return new GaugeEnergyCableUVBaseModel();
             case "pipe_fluid_gauge":
                 return new GaugeFluidPipeBaseModel();
             case "indfloor":
@@ -69,6 +75,8 @@ public class ModelLoaderCustom implements ICustomModelLoader
                 return new FloorEnergyCableLVModel();
             case "floor_cable_hv":
                 return new FloorEnergyCableHVModel();
+            case "floor_cable_uv":
+                return new FloorEnergyCableUVModel();
             case "floor_pipe":
                 return new FloorFluidPipeIModel();
             case "battery_bank":
